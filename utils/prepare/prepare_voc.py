@@ -71,7 +71,7 @@ def transdifi(data_path):
 
     # binary label
     # 0 means negative
-    # +1 means positive 
+    # +1 means positive
 
     # we use binary labels in our implementation
 
@@ -105,22 +105,22 @@ def transdifi(data_path):
 
             if int(item.split('.')[0]) in trainval_id:
                 target[target == -1] = 0  # from ternary to binary by treating difficult as negatives
-                data = {"target": target.tolist(), "img_path": img_path}      
+                data = {"target": target.tolist(), "img_path": img_path}
                 trainval_data.append(data)
             if int(item.split('.')[0]) in test_id:
-                data = {"target": target.tolist(), "img_path": img_path}      
+                data = {"target": target.tolist(), "img_path": img_path}
                 test_data.append(data)
 
     json.dump(trainval_data, open("data/voc07/trainval_voc07.json", "w"))
     json.dump(test_data, open("data/voc07/test_voc07.json", "w"))
     print("VOC07 data preparing finished!")
     print("data/voc07/trainval_voc07.json data/voc07/test_voc07.json")
-    
+
     # remove label cash
     for item in os.listdir(label_dir):
         os.remove(os.path.join(label_dir, item))
     os.rmdir(label_dir)
-    
+
 
 # We treat difficult classes in trainval_data as negtive while ignore them in test_data
 # The ignoring operation can be automatically done during evaluation (testing).
@@ -128,8 +128,8 @@ def transdifi(data_path):
 # which is the following format:
 # [item1, item2, item3, ......,]
 # item1 = {
-#      "target": 
-#      "img_path":      
+#      "target":
+#      "img_path":
 # }
 
 if __name__ == "__main__":
@@ -140,7 +140,7 @@ if __name__ == "__main__":
 
     if not os.path.exists("data/voc07"):
         os.makedirs("data/voc07")
-    
+
     if 'VOCdevkit' not in args.data_path:
         print("WARNING: please include \'VOCdevkit\' str in your args.data_path")
         # exit()

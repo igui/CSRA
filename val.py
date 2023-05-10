@@ -8,7 +8,7 @@ from pipeline.resnet_csra import ResNet_CSRA
 from pipeline.vit_csra import VIT_B16_224_CSRA, VIT_L16_224_CSRA, VIT_CSRA
 from pipeline.dataset import DataSet
 from utils.evaluation.eval import evaluation
-from utils.evaluation.eval import WarmUpLR
+#from utils.evaluation.eval import WarmUpLR
 from tqdm import tqdm
 
 
@@ -28,7 +28,7 @@ def Args():
 
     args = parser.parse_args()
     return args
-    
+
 
 def val(args, model, test_loader, test_file):
     model.eval()
@@ -52,7 +52,7 @@ def val(args, model, test_loader, test_file):
                     "scores": result[k]
                 }
             )
-    
+
     # cal_mAP OP OR
     evaluation(result=result_list, types=args.dataset, ann_path=test_file[0])
 
@@ -61,9 +61,9 @@ def val(args, model, test_loader, test_file):
 def main():
     args = Args()
 
-    # model 
-    if args.model == "resnet101": 
-        model = ResNet_CSRA(num_heads=args.num_heads, lam=args.lam, num_classes=args.num_cls, cutmix=args.cutmix)
+    # model
+    if args.model == "resnet101":
+        model = ResNet_CSRA(num_heads=args.num_heads, lam=args.lam, num_classes=args.num_cls, cutmix=None)
     if args.model == "vit_B16_224":
         model = VIT_B16_224_CSRA(cls_num_heads=args.num_heads, lam=args.lam, cls_num_cls=args.num_cls)
     if args.model == "vit_L16_224":
